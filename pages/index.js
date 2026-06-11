@@ -722,6 +722,7 @@ export default function Home() {
 
   const maxSector =Math.max(...sectors.map(s=>s.totalAmt),1)
   const ts        =data?.updatedAt?new Date(data.updatedAt).toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}):''
+  const dataDate  =data?.dataDate||''
   const longN     =analysis.filter(s=>s.direction==='做多').length
 
   return (<>
