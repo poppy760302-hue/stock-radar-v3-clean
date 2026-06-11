@@ -578,15 +578,16 @@ function WatchRow({s, idx=0}) {
   return (
     <>
       <div className={`wr ${stripeClass}`} onClick={()=>setOpen(o=>!o)}>
-        <div className="wrc">
-          <span style={{fontSize:16,fontWeight:700,color:'#F0F8FF',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{s.name}</span>
-          <span style={{fontSize:12,color:'#8B9CB8',marginLeft:7,flexShrink:0}}>{s.code}</span>
+        <div className="wrc" style={{gap:6}}>
+          <span style={{fontSize:17,fontWeight:700,color:'#F0F8FF',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{s.name}</span>
+          <span style={{fontSize:13,color:'#8B9CB8',flexShrink:0}}>{s.code}</span>
+          <span style={{fontSize:13,color:open?'#5A9FD8':'#4A5E74',marginLeft:'auto',flexShrink:0,transition:'transform .2s',display:'inline-block',transform:open?'rotate(90deg)':''}}>▸</span>
         </div>
-        <div className="wrc" style={{fontWeight:600,fontSize:13,color:cc(s.changePct),whiteSpace:'nowrap'}}>{up?'▲':'▼'}{fd(Math.abs(s.changePct),2)}%</div>
-        <div className="wrc" style={{fontSize:13,color:'#94A3B8',whiteSpace:'nowrap'}}>{tag}</div>
-        <div className="wrc" style={{fontSize:12,fontWeight:500,color:'#3B82F6',whiteSpace:'nowrap'}}>{s.entry!=='—'?s.entry:'—'}</div>
-        <div className="wrc" style={{fontSize:12,fontWeight:600,color:UP,whiteSpace:'nowrap'}}>{s.stopLoss!=='—'?s.stopLoss:'—'}</div>
-        <div className="wrc" style={{fontSize:12,fontWeight:600,color:DOWN,whiteSpace:'nowrap'}}>{s.tp1!=='—'?s.tp1:'—'}</div>
+        <div className="wrc" style={{fontWeight:700,fontSize:15,color:cc(s.changePct),whiteSpace:'nowrap'}}>{up?'▲':'▼'}{fd(Math.abs(s.changePct),2)}%</div>
+        <div className="wrc" style={{fontSize:14,color:'#A0B0C8',whiteSpace:'nowrap'}}>{tag}</div>
+        <div className="wrc" style={{fontSize:13,fontWeight:600,color:'#3B82F6',whiteSpace:'nowrap'}}>{s.entry!=='—'?s.entry:'—'}</div>
+        <div className="wrc" style={{fontSize:13,fontWeight:700,color:UP,whiteSpace:'nowrap'}}>{s.stopLoss!=='—'?s.stopLoss:'—'}</div>
+        <div className="wrc" style={{fontSize:13,fontWeight:700,color:DOWN,whiteSpace:'nowrap'}}>{s.tp1!=='—'?s.tp1:'—'}</div>
         <div className="wrc"><span className={`ws ${st.cls}`}>{st.lbl}</span></div>
       </div>
       {open&&(
@@ -833,7 +834,7 @@ export default function Home() {
       .wr:hover{background:rgba(59,130,246,.09)!important}
       .wr-even{background:rgba(255,255,255,.04)}
       .wr-odd{background:rgba(8,18,40,.7)}
-      .wrc{font-size:13px;color:#94A3B8;display:flex;align-items:center;overflow:hidden;font-weight:400;min-width:0;padding-right:8px}
+      .wrc{font-size:14px;color:#A0B0C8;display:flex;align-items:center;overflow:hidden;font-weight:400;min-width:0;padding-right:8px}
       .wt-head .wrc{font-size:11px;font-weight:700;color:#C0D4EC;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
       @media(max-width:900px){
         .wt-head{grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr))}
@@ -964,7 +965,7 @@ export default function Home() {
           <>
             <div className="wt">
               <div className="wt-head">
-                <div className="wrc">股票 <span style={{fontSize:11,color:"#5A6E84",marginLeft:6,fontWeight:400}}>點擊展開詳情</span></div>
+                <div className="wrc">股票 <span style={{fontSize:11,color:"#F59E0B",marginLeft:6,fontWeight:500}}>點擊展開詳情 ↓</span></div>
                 <div className="wrc">漲跌</div>
                 <div className="wrc">主線</div>
                 <div className="wrc">進場區間</div>
