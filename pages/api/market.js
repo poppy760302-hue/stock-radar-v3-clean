@@ -5,7 +5,7 @@ let _cache = null
 let _cacheTime = 0
 const CACHE_TTL = 5 * 60 * 1000  // 5 minutes
 
-const GITHUB_RAW = 'https://raw.githubusercontent.com/poppy0302/stock-radar-v3-clean/main/public/data.json'
+const GITHUB_RAW = 'https://raw.githubusercontent.com/poppy760302-hue/stock-radar-v3-clean/main/public/data.json'
 
 async function fetchFromGitHub() {
   try {
