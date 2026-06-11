@@ -964,7 +964,7 @@ export default function Home() {
           <>
             <div className="wt">
               <div className="wt-head">
-                <div className="wrc">股票</div>
+                <div className="wrc">股票 <span style={{fontSize:11,color:"#5A6E84",marginLeft:6,fontWeight:400}}>點擊展開詳情</span></div>
                 <div className="wrc">漲跌</div>
                 <div className="wrc">主線</div>
                 <div className="wrc">進場區間</div>
