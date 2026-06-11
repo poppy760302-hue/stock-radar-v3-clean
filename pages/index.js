@@ -480,11 +480,7 @@ function ThemeCard({s,rank,analysis,maxAmt}) {
           <div style={{fontSize:22,fontWeight:800,color:m.color,lineHeight:1}}>{hot}</div>
           <div style={{fontSize:12,fontWeight:700,color:hotLabel.c,marginTop:2}}>{hotLabel.l}</div>
         </div>
-        {/* caret */}
-        <span style={{fontSize:20,color:open?m.color:'#8090B8',
-          transition:'transform .25s cubic-bezier(.4,0,.2,1)',
-          transform:open?'rotate(180deg)':'',
-          lineHeight:1,marginLeft:8,flexShrink:0}}>▾</span>
+
       </div>
 
       {/* collapsed: top3 chips + CTA */}
@@ -502,14 +498,13 @@ function ThemeCard({s,rank,analysis,maxAmt}) {
               </span>
             </div>
           )}
-          {/* bottom CTA */}
+          {/* CTA — right after chips */}
           <div style={{
-            display:'flex',alignItems:'center',justifyContent:'center',gap:6,
-            padding:'8px 0',borderTop:'1px solid rgba(255,255,255,.07)',
-            fontSize:13,fontWeight:600,color:m.color,
+            display:'inline-flex',alignItems:'center',gap:5,
+            marginTop:6,fontSize:13,fontWeight:600,color:m.color,
           }}>
             <span>查看 {stocks.length} 檔個股</span>
-            <span style={{fontSize:16}}>→</span>
+            <span>→</span>
           </div>
         </div>
       )}
