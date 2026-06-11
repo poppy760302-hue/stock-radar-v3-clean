@@ -449,13 +449,12 @@ function ThemeCard({s,rank,analysis,maxAmt}) {
   const up   = s.avgChg>=0
   const stocks = analysis.filter(a=>a.tags?.includes(s.key)).sort((a,b)=>b.confidenceScore-a.confidenceScore).slice(0,8)
   const hotLabel = hot>=85?{l:'極熱',c:'#EF4444'}:hot>=65?{l:'偏熱',c:'#F59E0B'}:hot>=40?{l:'中性',c:'#3B82F6'}:{l:'冷淡',c:'#6B7A94'}
-  // fake sparkline data from sector
   const fakeS = {price:s.totalAmt/1e8, changePct:s.avgChg, amp:Math.abs(s.avgChg)*1.5, confidenceScore:hot}
   return (
-    <div className="th">
+    <div className={`th${open?' th-open':''}`} onClick={()=>setOpen(o=>!o)} style={{cursor:'pointer'}}>
       <div style={{height:3,background:m.grd}}/>
-      {/* main row — always visible */}
-      <div className="th-head" onClick={()=>setOpen(o=>!o)}>
+      {/* main row */}
+      <div className="th-head">
         <div style={{width:36,height:36,borderRadius:10,
           background:`linear-gradient(135deg,${m.color}33,${m.color}18)`,
           border:`1px solid ${m.color}55`,
@@ -464,7 +463,6 @@ function ThemeCard({s,rank,analysis,maxAmt}) {
         </div>
         <div style={{flex:1,minWidth:0}}>
           <div style={{fontSize:16,fontWeight:700,color:'#F0F8FF',marginBottom:4}}>{m.name}</div>
-          {/* LED heat bar */}
           <div style={{display:'flex',gap:2,alignItems:'center'}}>
             {Array.from({length:10},(_,i)=>(
               <div key={i} style={{
@@ -475,32 +473,44 @@ function ThemeCard({s,rank,analysis,maxAmt}) {
             ))}
           </div>
         </div>
-        {/* sparkline */}
         <div style={{flexShrink:0,marginLeft:8}}>
           <Sparkline s={fakeS} w={70} h={32}/>
         </div>
-        {/* score + label */}
         <div style={{textAlign:'right',flexShrink:0,marginLeft:8}}>
           <div style={{fontSize:22,fontWeight:800,color:m.color,lineHeight:1}}>{hot}</div>
           <div style={{fontSize:12,fontWeight:700,color:hotLabel.c,marginTop:2}}>{hotLabel.l}</div>
         </div>
-        <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:1,marginLeft:6}}>
-          <span style={{fontSize:22,color:open?m.color:'#8090B8',transition:'transform .25s',transform:open?'rotate(180deg)':'',lineHeight:1}}>▾</span>
-          {!open&&<span style={{fontSize:12,color:'#7A8EA8',fontWeight:600}}>展開</span>}
-        </div>
+        {/* caret */}
+        <span style={{fontSize:20,color:open?m.color:'#8090B8',
+          transition:'transform .25s cubic-bezier(.4,0,.2,1)',
+          transform:open?'rotate(180deg)':'',
+          lineHeight:1,marginLeft:8,flexShrink:0}}>▾</span>
       </div>
 
-      {/* rep stocks — collapsed */}
-      {!open&&s.top3?.length>0&&(
-        <div style={{padding:'4px 16px 12px',display:'flex',gap:5,flexWrap:'wrap'}}>
-          {s.top3.map(t=>(
-            <span key={t.code} style={{fontSize:12,padding:'3px 9px',borderRadius:20,background:'rgba(255,255,255,.05)',color:'#94A3B8',border:'1px solid rgba(255,255,255,.08)'}}>
-              {t.name} <span style={{color:cc(t.changePct)}}>{t.changePct>=0?'+':''}{fd(t.changePct,1)}%</span>
-            </span>
-          ))}
-          <span style={{fontSize:13,color:'#8090A8',alignSelf:'center'}}>
-            {s.count}檔 · <span style={{color:cc(s.avgChg),fontWeight:600}}>{up?'+':''}{fd(s.avgChg,1)}%</span>
-          </span>
+      {/* collapsed: top3 chips + CTA */}
+      {!open&&(
+        <div style={{padding:'4px 16px 12px'}}>
+          {s.top3?.length>0&&(
+            <div style={{display:'flex',gap:5,flexWrap:'wrap',marginBottom:10}}>
+              {s.top3.map(t=>(
+                <span key={t.code} style={{fontSize:12,padding:'3px 9px',borderRadius:20,background:'rgba(255,255,255,.05)',color:'#94A3B8',border:'1px solid rgba(255,255,255,.08)'}}>
+                  {t.name} <span style={{color:cc(t.changePct)}}>{t.changePct>=0?'+':''}{fd(t.changePct,1)}%</span>
+                </span>
+              ))}
+              <span style={{fontSize:13,color:'#8090A8',alignSelf:'center'}}>
+                {s.count}檔 · <span style={{color:cc(s.avgChg),fontWeight:600}}>{up?'+':''}{fd(s.avgChg,1)}%</span>
+              </span>
+            </div>
+          )}
+          {/* bottom CTA */}
+          <div style={{
+            display:'flex',alignItems:'center',justifyContent:'center',gap:6,
+            padding:'8px 0',borderTop:'1px solid rgba(255,255,255,.07)',
+            fontSize:13,fontWeight:600,color:m.color,
+          }}>
+            <span>查看 {stocks.length} 檔個股</span>
+            <span style={{fontSize:16}}>→</span>
+          </div>
         </div>
       )}
 
@@ -532,6 +542,15 @@ function ThemeCard({s,rank,analysis,maxAmt}) {
               )
             })
           }
+          {/* collapse CTA */}
+          <div style={{
+            display:'flex',alignItems:'center',justifyContent:'center',gap:6,
+            padding:'10px 0',borderTop:'1px solid rgba(255,255,255,.07)',
+            fontSize:13,fontWeight:600,color:'#7A8EA8',
+          }}>
+            <span>收合</span>
+            <span style={{fontSize:16}}>↑</span>
+          </div>
         </div>
       )}
     </div>
@@ -800,8 +819,8 @@ export default function Home() {
       @media(max-width:700px){.th-grid{grid-template-columns:1fr}}
       .th{background:linear-gradient(160deg,#0F1B35,#0A1525);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;transition:border-color .2s,transform .2s}
       .th:hover{border-color:rgba(139,92,246,.22);transform:translateY(-1px)}
-      .th-head{display:flex;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;user-select:none;transition:background .15s}
-      .th-head:hover{background:rgba(255,255,255,.03)}
+      .th-head{display:flex;align-items:center;gap:12px;padding:16px 18px;transition:background .15s}
+      .th:hover .th-head{background:rgba(255,255,255,.03)}
       .th-row{display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:1px solid rgba(255,255,255,.05);transition:background .1s}
       .th-row:last-child{border-bottom:none}
       .th-row:hover{background:rgba(59,130,246,.05)}
