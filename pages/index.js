@@ -498,13 +498,18 @@ function ThemeCard({s,rank,analysis,maxAmt}) {
               </span>
             </div>
           )}
-          {/* CTA — right after chips */}
+          {/* CTA button */}
           <div style={{
-            display:'inline-flex',alignItems:'center',gap:5,
-            marginTop:6,fontSize:13,fontWeight:600,color:m.color,
+            display:'inline-flex',alignItems:'center',gap:6,
+            marginTop:8,padding:'5px 14px',
+            fontSize:12,fontWeight:600,color:m.color,
+            background:`${m.color}15`,
+            border:`1px solid ${m.color}40`,
+            borderRadius:20,
+            transition:'background .15s,border-color .15s',
           }}>
             <span>查看 {stocks.length} 檔個股</span>
-            <span>→</span>
+            <span style={{fontSize:14}}>→</span>
           </div>
         </div>
       )}
