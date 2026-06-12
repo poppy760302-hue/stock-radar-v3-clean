@@ -153,6 +153,13 @@ function DailySummary({analysis, sectors, oppList}) {
 
 /* ── KPI Bar ── */
 function KpiBar({analysis,sectors,oppList}) {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(()=>{
+    const check = () => setIsMobile(window.innerWidth <= 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
   if(!analysis.length) return null
   const long     = analysis.filter(s=>s.direction==='做多').length
   const total    = analysis.length
@@ -232,7 +239,7 @@ function KpiBar({analysis,sectors,oppList}) {
             <span style={{fontSize:13,color:'#9AAEC0',textTransform:'uppercase',letterSpacing:'.07em',fontWeight:600}}>{k.label}</span>
           </div>
           <div style={{display:'flex',alignItems:'baseline',gap:4,marginBottom:2}}>
-            <span style={{fontSize:36,fontWeight:800,color:k.color,lineHeight:1,letterSpacing:'-.03em'}}>{k.main}</span>
+            <span className="kpi-val" style={{fontSize:36,fontWeight:800,color:k.color,lineHeight:1,letterSpacing:'-.03em'}}>{k.main}</span>
             {k.unit&&<span style={{fontSize:14,color:'#8090A8'}}>{k.unit}</span>}
           </div>
           <div style={{fontSize:13,fontWeight:600,color:'#C0D0E8',marginBottom:1}}>{k.sub}</div>
@@ -886,7 +893,7 @@ export default function Home() {
       .logic-note{font-size:12px;color:#6B7A94;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);line-height:1.7}
       .note-line{font-size:12px;color:#6B7A94;line-height:1.7;margin-top:10px}
 
-      .kpi-grid-wrap{grid-template-columns:repeat(4,1fr)}
+      .kpi-grid-wrap{grid-template-columns:repeat(4,1fr);width:100%}
 
       /* ══ MOBILE ═══════════════════════════════════════ */
       @media(max-width:768px){
@@ -910,10 +917,10 @@ export default function Home() {
         .sp-left{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.07)}
 
         /* KPI */
-        .kpi-grid-wrap{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
-        .kpi-card{padding:12px 12px}
-        .kpi-card .kpi-val{font-size:26px!important}
-        .kpi-card .kpi-lbl{font-size:10px!important}
+        .kpi-grid-wrap{grid-template-columns:1fr 1fr!important;gap:8px!important;max-width:100%!important}
+        .kpi-card{padding:11px 12px!important}
+        .kpi-val{font-size:24px!important;letter-spacing:-.02em!important}
+        .kpi-lbl{font-size:9px!important;letter-spacing:.03em!important}
 
         /* TOP5 */
         .t5-grid{grid-template-columns:1fr!important}
