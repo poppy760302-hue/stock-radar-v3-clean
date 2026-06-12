@@ -886,6 +886,8 @@ export default function Home() {
       .logic-note{font-size:12px;color:#6B7A94;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);line-height:1.7}
       .note-line{font-size:12px;color:#6B7A94;line-height:1.7;margin-top:10px}
 
+      .kpi-grid-wrap{grid-template-columns:repeat(4,1fr)}
+
       /* ══ MOBILE ═══════════════════════════════════════ */
       @media(max-width:768px){
 
@@ -908,8 +910,10 @@ export default function Home() {
         .sp-left{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.07)}
 
         /* KPI */
-        .kpi-grid-wrap{display:grid;grid-template-columns:1fr 1fr!important;gap:8px}
-        .kpi-card{padding:14px 14px}
+        .kpi-grid-wrap{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+        .kpi-card{padding:12px 12px}
+        .kpi-card .kpi-val{font-size:26px!important}
+        .kpi-card .kpi-lbl{font-size:10px!important}
 
         /* TOP5 */
         .t5-grid{grid-template-columns:1fr!important}
