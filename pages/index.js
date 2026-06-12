@@ -985,8 +985,8 @@ export default function Home() {
         <div style={{display:'flex',alignItems:'center',gap:10}}>
           <div className={`dot ${!loading?'on':''}`}/>
           <div>
-            <div className="hdr-title">今日開盤前選股雷達</div>
-            <div className="hdr-sub">台股選股工具 · 昨日收盤分析</div>
+            <div className="hdr-title">台股強勢股雷達</div>
+            <div className="hdr-sub">依昨日收盤資料分析 · 僅供開盤前參考</div>
           </div>
         </div>
         <div style={{display:'flex',alignItems:'center',gap:14,flexWrap:'wrap'}}>

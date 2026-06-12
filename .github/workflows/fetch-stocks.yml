@@ -2,7 +2,7 @@ name: Fetch Taiwan Stock Data
 
 on:
   schedule:
-    - cron: '0 9 * * 1-5'  # 每週一到週五 17:00 台灣時間（UTC+8 = UTC 09:00）
+    - cron: '30 7 * * 1-5'  # 每週一到週五 15:30 台灣時間（UTC 07:30）
   workflow_dispatch:         # 允許手動觸發
 
 jobs:
