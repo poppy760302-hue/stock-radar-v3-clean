@@ -225,7 +225,7 @@ function KpiBar({analysis,sectors,oppList}) {
   ]
 
   return (
-    <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:40}}>
+    <div style={{display:'grid',gridTemplateColumns:isMobile?'1fr 1fr':'repeat(4,1fr)',gap:isMobile?8:12,marginBottom:isMobile?16:40}}>
       {kpis.map((k,i)=>(
         <div key={i} className="kpi-card">
           <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:8}}>
