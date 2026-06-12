@@ -578,17 +578,36 @@ function WatchRow({s, idx=0}) {
   return (
     <>
       <div className={`wr ${stripeClass}`} onClick={()=>setOpen(o=>!o)}>
-        <div className="wrc" style={{gap:6}}>
+        {/* desktop columns */}
+        <div className="wrc wr-desktop" style={{gap:6}}>
           <span style={{fontSize:17,fontWeight:700,color:'#F0F8FF',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{s.name}</span>
           <span style={{fontSize:13,color:'#8B9CB8',flexShrink:0}}>{s.code}</span>
           <span style={{fontSize:13,color:open?'#5A9FD8':'#4A5E74',marginLeft:'auto',flexShrink:0,transition:'transform .2s',display:'inline-block',transform:open?'rotate(90deg)':''}}>▸</span>
         </div>
-        <div className="wrc" style={{fontWeight:700,fontSize:15,color:cc(s.changePct),whiteSpace:'nowrap'}}>{up?'▲':'▼'}{fd(Math.abs(s.changePct),2)}%</div>
-        <div className="wrc" style={{fontSize:14,color:'#A0B0C8',whiteSpace:'nowrap'}}>{tag}</div>
-        <div className="wrc" style={{fontSize:13,fontWeight:600,color:'#3B82F6',whiteSpace:'nowrap'}}>{s.entry!=='—'?s.entry:'—'}</div>
-        <div className="wrc" style={{fontSize:13,fontWeight:700,color:UP,whiteSpace:'nowrap'}}>{s.stopLoss!=='—'?s.stopLoss:'—'}</div>
-        <div className="wrc" style={{fontSize:13,fontWeight:700,color:DOWN,whiteSpace:'nowrap'}}>{s.tp1!=='—'?s.tp1:'—'}</div>
-        <div className="wrc"><span className={`ws ${st.cls}`}>{st.lbl}</span></div>
+        <div className="wrc wr-desktop" style={{fontWeight:700,fontSize:15,color:cc(s.changePct),whiteSpace:'nowrap'}}>{up?'▲':'▼'}{fd(Math.abs(s.changePct),2)}%</div>
+        <div className="wrc wr-desktop" style={{fontSize:14,color:'#A0B0C8',whiteSpace:'nowrap'}}>{tag}</div>
+        <div className="wrc wr-desktop" style={{fontSize:13,fontWeight:600,color:'#3B82F6',whiteSpace:'nowrap'}}>{s.entry!=='—'?s.entry:'—'}</div>
+        <div className="wrc wr-desktop" style={{fontSize:13,fontWeight:700,color:UP,whiteSpace:'nowrap'}}>{s.stopLoss!=='—'?s.stopLoss:'—'}</div>
+        <div className="wrc wr-desktop" style={{fontSize:13,fontWeight:700,color:DOWN,whiteSpace:'nowrap'}}>{s.tp1!=='—'?s.tp1:'—'}</div>
+        <div className="wrc wr-desktop"><span className={`ws ${st.cls}`}>{st.lbl}</span></div>
+        {/* mobile card layout */}
+        <div className="wr-mobile-top">
+          <div style={{display:'flex',alignItems:'center',gap:7}}>
+            <span style={{fontSize:17,fontWeight:700,color:'#F0F8FF'}}>{s.name}</span>
+            <span style={{fontSize:13,color:'#8B9CB8'}}>{s.code}</span>
+          </div>
+          <div style={{display:'flex',alignItems:'center',gap:8}}>
+            <span style={{fontWeight:700,fontSize:16,color:cc(s.changePct)}}>{up?'▲':'▼'}{fd(Math.abs(s.changePct),2)}%</span>
+            <span className={`ws ${st.cls}`}>{st.lbl}</span>
+            <span style={{fontSize:14,color:open?'#5A9FD8':'#4A5E74',transition:'transform .2s',display:'inline-block',transform:open?'rotate(90deg)':''}}>▸</span>
+          </div>
+        </div>
+        <div className="wr-mobile-bot">
+          {tag!=='—'&&<span style={{fontSize:13,color:'#8090A8',padding:'2px 8px',borderRadius:12,background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.08)'}}>{tag}</span>}
+          {s.entry!=='—'&&<span style={{fontSize:12,color:'#94A3B8'}}>進場 <span style={{color:'#3B82F6',fontWeight:600}}>{s.entry}</span></span>}
+          {s.stopLoss!=='—'&&<span style={{fontSize:12,color:'#94A3B8'}}>停損 <span style={{color:UP,fontWeight:600}}>{s.stopLoss}</span></span>}
+          {s.tp1!=='—'&&<span style={{fontSize:12,color:'#94A3B8'}}>停利 <span style={{color:DOWN,fontWeight:600}}>{s.tp1}</span></span>}
+        </div>
       </div>
       {open&&(
         <div className="wr-expand">
@@ -866,6 +885,87 @@ export default function Home() {
       .lc-p{font-size:13px;color:#64748B;line-height:1.7}
       .logic-note{font-size:12px;color:#6B7A94;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);line-height:1.7}
       .note-line{font-size:12px;color:#6B7A94;line-height:1.7;margin-top:10px}
+
+      /* ══ MOBILE ═══════════════════════════════════════ */
+      @media(max-width:768px){
+
+        /* page */
+        .page{padding:0 14px 60px}
+
+        /* header */
+        .hdr{padding:14px 0 12px;margin-bottom:20px;flex-direction:column;align-items:flex-start;gap:10px}
+        .hdr-stats{flex-wrap:wrap;gap:0;width:100%;display:grid;grid-template-columns:1fr 1fr 1fr}
+        .hs{padding:8px 10px;border-left:none!important;border:1px solid rgba(255,255,255,.07);border-radius:8px;text-align:center}
+        .hs-l{font-size:10px}
+        .hs-v{font-size:17px}
+
+        /* section */
+        .sec{margin-bottom:28px}
+        .divider{margin:0 0 28px}
+
+        /* sentiment panel */
+        .sp-panel{grid-template-columns:1fr!important}
+        .sp-left{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.07)}
+
+        /* KPI */
+        .kpi-grid-wrap{display:grid;grid-template-columns:1fr 1fr!important;gap:8px}
+        .kpi-card{padding:14px 14px}
+
+        /* TOP5 */
+        .t5-grid{grid-template-columns:1fr!important}
+        .t5-grid2{grid-template-columns:1fr!important;margin-top:8px}
+        .t5-body{padding:16px 16px 14px}
+
+        /* opp cards */
+        .opp-grid{grid-template-columns:1fr 1fr!important;gap:10px}
+
+        /* theme grid */
+        .th-grid{grid-template-columns:1fr!important}
+
+        /* watch table → card list */
+        .wt{border-radius:10px}
+        .wt-head{display:none!important}
+        .wr{
+          display:flex!important;
+          flex-direction:column!important;
+          padding:14px 16px!important;
+          gap:6px!important;
+          border-bottom:1px solid rgba(255,255,255,.07)!important;
+        }
+        .wrc{font-size:14px!important;padding-right:0!important;min-width:unset!important;overflow:visible!important}
+
+        /* watch row mobile layout */
+        .wr-mobile-top{display:flex;align-items:center;justify-content:space-between;width:100%}
+        .wr-mobile-mid{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+        .wr-mobile-bot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+        /* expand */
+        .wr-expand{padding:14px 16px}
+        .wr-expand > div{grid-template-columns:1fr!important}
+
+        /* accordion */
+        .acc{border-radius:10px}
+        .acc-btn{padding:13px 16px}
+        .acc-body{padding:14px 16px}
+
+        /* logic grid */
+        .logic-grid{grid-template-columns:1fr!important}
+
+        /* sentiment + risk side by side → stack */
+        .sp-risk-wrap{grid-template-columns:1fr!important}
+      }
+
+      /* hide mobile layout on desktop */
+      .wr-mobile-top,.wr-mobile-mid,.wr-mobile-bot{display:none}
+      @media(max-width:768px){
+        .wr-desktop{display:none!important}
+        .wr-mobile-top,.wr-mobile-bot{display:flex!important}
+      }
+
+      @media(max-width:400px){
+        .opp-grid{grid-template-columns:1fr!important}
+        .kpi-grid-wrap{grid-template-columns:1fr 1fr!important}
+      }
     `}</style>
 
     <div className="page">
@@ -909,7 +1009,7 @@ export default function Home() {
 
       {/* Sentiment + Risk side by side */}
       {!loading&&data&&(
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:36}}>
+        <div className="sp-risk-wrap" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:36}}>
           <SentimentGauge analysis={analysis} sectors={sectors}/>
           <div style={{background:'linear-gradient(160deg,#0F1D35 0%,#0A1525 100%)',border:'1px solid rgba(255,120,120,.18)',borderRadius:14,padding:'20px 24px',boxShadow:'inset 0 1px 0 rgba(255,255,255,.07)'}}>
             <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:14}}>
