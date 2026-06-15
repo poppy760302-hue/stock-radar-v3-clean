@@ -2,19 +2,23 @@ name: Fetch Taiwan Stock Data
 
 on:
   schedule:
-    - cron: '30 7 * * 1-5'  # 每週一到週五 15:30 台灣時間（UTC 07:30）
-  workflow_dispatch:         # 允許手動觸發
+    - cron: '30 7 * * 1-5'   # 15:30 台灣時間
+    - cron: '0 8 * * 1-5'    # 16:00 台灣時間（備用）
+  workflow_dispatch:
 
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fetch TWSE + TPEx data
-        run: |
-          node scripts/fetch-data.js
+        run: node scripts/fetch-data.js
 
       - name: Commit and push data
         run: |
